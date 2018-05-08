@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class Employee {
+        constructor(name, age, designation){
+            this.name = name;
+            this.age = age;
+            this.designation = designation;
+        }
+    }
+
+    class Company {
+        constructor(name, employees){
+            this.name = name;
+            this.employees = employees;
+        }
+    }
+
+    const employees = [
+        new Employee("Anooj",24, "Android Developer"),
+        new Employee("Faisal", 26, "PHP Developer"),
+        new Employee("Shuaib",32, "CEO")
+    ];
+
+    const cybaze = new Company("Cybaze",employees);
+
+    class EmployeeProfile extends React.Component {
+        render(){
+            var emp = this.props.emp;
+            return (
+                <div>
+                    <h1>{emp.name}, {emp.age} </h1>
+                    <h3>{emp.designation} </h3>
+                    <hr/>
+                </div>
+            )
+        }
+    }
+
+    class CompanyProfile extends React.Component{
+        render(){
+            var company = this.props.company;
+            var emps = company.employees;
+            var empList = emps.map((emp,index)=> <EmployeeProfile key={cybaze} emp={emp}/>);
+            return (
+                <div>
+                    <div>
+                        <h1>{company.name} </h1>
+                     </div>
+                    <hr/><br/><br/>
+                    <div>
+                        {empList}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<CompanyProfile company={cybaze} />, document.getElementById("root"))
+
+</script>
+<!--
+  Note: this page is a great way to try React but it's not suitable for production.
+  It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+  To set up a production-ready React build environment, follow these instructions:
+  * https://reactjs.org/docs/add-react-to-a-new-app.html
+  * https://reactjs.org/docs/add-react-to-an-existing-app.html
+
+  You can also use React without JSX, in which case you can remove Babel:
+  * https://reactjs.org/docs/react-without-jsx.html
+  * https://reactjs.org/docs/cdn-links.html
+-->
+</body>
+</html>
